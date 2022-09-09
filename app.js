@@ -3,12 +3,27 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+<<<<<<< HEAD
+const port = process.env.port || 4000;
+=======
 const cors = require('cors')
+>>>>>>> main
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+
 var app = express();
+
+let mongoose = require('mongoose');
+const url = "mongodb+srv://Listmaker:s19sTmx9BboL17lP@cluster0.hukns0d.mongodb.net/?retryWrites=true&w=majority"
+mongoose.connect(url, {
+  useNewUrlParser: true,
+})
+let db = mongoose.connection;
+db.on('error', err => console.log(err));
+
+db.once('open', () => console.log('open connection'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,5 +58,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+app.listen(port, ()=> console.log('4000'))
 
 module.exports = app;
