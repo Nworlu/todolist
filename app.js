@@ -16,6 +16,7 @@ let mongoose = require('mongoose');
 const url = "mongodb+srv://todo:Vyk8yj5bVnWaZUAr@cluster0.ds8fkro.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(url, {
   useNewUrlParser: true,
+  useUnifiedTopology:true
 })
 let db = mongoose.connection;
 db.on('error', err => console.log(err));
