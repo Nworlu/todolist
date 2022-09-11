@@ -1,10 +1,10 @@
-let mongoose = require ('mongoose')
+let mongoose = require('mongoose')
 const todolistSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        min: 0,
-        max: 25,
+        minLength: 0,
+        maxLength: 35,
     },
 
 
@@ -16,12 +16,13 @@ const todolistSchema = new mongoose.Schema({
 
     completed:{
         type: Boolean,
-        required: true,
+        default: false,
         
     },
 
     importance:{
         type:Boolean,
+        default: false,
     },
 })
 
