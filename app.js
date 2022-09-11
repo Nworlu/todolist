@@ -3,20 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-<<<<<<< HEAD
 const port = process.env.port || 4000;
-=======
 const cors = require('cors')
->>>>>>> main
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/index'); 
 var usersRouter = require('./routes/users');
 
 
 var app = express();
 
 let mongoose = require('mongoose');
-const url = "mongodb+srv://Listmaker:s19sTmx9BboL17lP@cluster0.hukns0d.mongodb.net/?retryWrites=true&w=majority"
+const url = "mongodb+srv://todo:Vyk8yj5bVnWaZUAr@cluster0.ds8fkro.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(url, {
   useNewUrlParser: true,
 })
