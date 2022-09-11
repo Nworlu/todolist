@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 const Lists = require('../model/list.js')
 
+
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  res.send('Chuka is calm');
+
 /* GET All Lists. */
 router.get('/', async function(req, res, next) {
  await Lists.find({})
@@ -12,6 +17,7 @@ router.get('/', async function(req, res, next) {
   .catch(err=>{
     res.status(500).send('An error occured while trying to retrieve the Lists')
   })
+
 });
 
 /* Get List By Id */
