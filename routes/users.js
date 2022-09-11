@@ -45,7 +45,7 @@ router.post('/', async function(req, res, next) {
     name:req.body.name,
     date:req.body.date,
     completed:req.body.completed,
-    importance:req.body.importance
+    importance:req.body.importance,
   })
   await newList.save()
   res.send(newList);
