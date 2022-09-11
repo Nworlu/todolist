@@ -1,30 +1,29 @@
-let mongoose = require ('mongoose')
+const mongoose = require("mongoose");
 const todolistSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        min: 0,
-        max: 25,
-    },
+  name: {
+    type: String,
+    required: true,
+    min: 0,
+    max: 25,
+  },
 
+  date: {
+    type: Date,
+    required: true,
+    min: "1999-09-28",
+    max: "2025-05-23",
+  },
 
-    date:{
-        type: Date,
-        required: true,
+  completed: {
+    type: Boolean,
+    default: false,
+  },
 
-    },
+  importance: {
+    type: Boolean,
+  },
+});
 
-    completed:{
-        type: Boolean,
-        required: true,
-        
-    },
+const Lists = mongoose.model("todolist", todolistSchema);
 
-    importance:{
-        type:Boolean,
-    },
-})
-
-const Lists = mongoose.model("todolist", todolistSchema)
-
-module.exports = Lists
+module.exports = Lists;
