@@ -4,7 +4,7 @@ const Lists = require('../model/list.js')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send('Chuka is calm');
 });
 
 router.post('/', async function(req, res, next) {
