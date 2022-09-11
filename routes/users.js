@@ -32,7 +32,7 @@ router.get('/id/:id', async (req,res)=>{
     }
   })
   .catch(err=>{
-    res.status(500).send('Some error occured while trying to retrieve the list')
+    res.status(500).send('Some err happened while trying to retrieve the list')
   })
 })
 
