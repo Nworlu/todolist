@@ -1,3 +1,4 @@
+
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -5,6 +6,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const port = process.env.port || 4000;
 const cors = require("cors");
+
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -18,6 +20,7 @@ mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 let db = mongoose.connection;
 db.on("error", (err) => console.log(err));
 
