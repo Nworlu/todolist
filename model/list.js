@@ -1,17 +1,15 @@
-const mongoose = require("mongoose");
+let mongoose = require("mongoose");
 const todolistSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    min: 0,
-    max: 25,
+    minLength: 0,
+    maxLength: 35,
   },
 
   date: {
     type: Date,
-    required: true,
-    min: "1999-09-28",
-    max: "2025-05-23",
+    default: Date.now(),
   },
 
   completed: {
@@ -21,6 +19,7 @@ const todolistSchema = new mongoose.Schema({
 
   importance: {
     type: Boolean,
+    default: false,
   },
 });
 
