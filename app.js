@@ -6,6 +6,9 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const port = process.env.port || 4000;
 const cors = require("cors");
+dotenv = require('dotenv').config()
+
+
 
 
 var indexRouter = require("./routes/index");
@@ -14,9 +17,7 @@ var usersRouter = require("./routes/users");
 var app = express();
 
 let mongoose = require("mongoose");
-const url =
-  "mongodb+srv://todo:Vyk8yj5bVnWaZUAr@cluster0.ds8fkro.mongodb.net/?retryWrites=true&w=majority";
-mongoose.connect(url, {
+mongoose.connect(process.env.DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -35,15 +36,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors({
+  origin: '*'
+}));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -60,6 +58,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-app.listen(port, () => console.log("4000"));
+app.listen(port, () => console.log(`App running on port ${port}`));
 
 module.exports = app;

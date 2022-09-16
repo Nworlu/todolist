@@ -2,6 +2,31 @@ var express = require("express");
 var router = express.Router();
 const Lists = require("../model/list.js");
 
+
+const userlist = [
+  {
+    name:'Jake',
+    email:'jake@hmm.com',
+    phone:09049494904094
+  },
+  {
+    name:'Jack',
+    email:'jacke@hmm.com',
+    phone:90904940490494
+  },
+  {
+    name:'Luke',
+    email:'luke@hmm.com',
+    phone:09094049404940
+  }
+]
+
+
+
+router.get('/demo', (req,res) => {
+  res.json(userlist)
+})
+
 /* GET All Lists. */
 router.get("/", async function (req, res, next) {
   await Lists.find({})
