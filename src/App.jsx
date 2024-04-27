@@ -5,8 +5,8 @@ import { useReducer } from "react";
 import CheckIcon from "./assets/check.svg";
 import DeleteIcon from "./assets/delete.svg";
 import "./App.css";
+import { motion } from "framer-motion";
 import { initialTodos, reducer } from "./reducers/todoListReducer";
-
 function App() {
   const [todos, dispatch] = useReducer(reducer, initialTodos);
   const [text, setText] = useState("");
@@ -42,9 +42,19 @@ function App() {
 
   return (
     <section className="bg-[#1E1E1E]">
-      <div className="bg-[#1D1825] rounded-[20px] min-w-[320px] min-h-[500px] lg:w-[600px] flex flex-col items-center py-[50px] px-[10px]">
+      <motion.div
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+        className="bg-[#1D1825] rounded-[20px] min-w-[320px] min-h-[500px] lg:w-[600px] flex flex-col items-center py-[50px] px-[10px]"
+      >
         <div className="flex flex-col gap-[10px]">
-          <div className="flex items-center gap-[15px]">
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+            className="flex items-center gap-[15px]"
+          >
             <input
               onChange={(e) => setText(e.target.value)}
               value={text}
@@ -60,10 +70,15 @@ function App() {
             >
               +
             </button>
-          </div>
+          </motion.div>
           <p className="text-red-500 text-[13px]">{message}</p>
         </div>
-        <div className="lg:w-[432px]">
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.7 }}
+          className="lg:w-[432px]"
+        >
           <h1 className="text-white my-[20px]">
             Tasks to do -{" "}
             {todos.filter((todo) => todo.complete === false).length} Tasks
@@ -71,7 +86,10 @@ function App() {
           </h1>
           <div className="w-full flex flex-col gap-[16px]">
             {todos.map((todo, index) => (
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
                 key={index}
                 className="flex items-center justify-between rounded-[10px] bg-[#15101C] w-full h-[75px] px-[20px]"
               >
@@ -94,11 +112,11 @@ function App() {
                     <img src={DeleteIcon} width={30} height={30} />
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
