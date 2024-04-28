@@ -7,11 +7,12 @@ import DeleteIcon from "./assets/delete.svg";
 import "./App.css";
 import { motion } from "framer-motion";
 import { initialTodos, reducer } from "./reducers/todoListReducer";
+import { toast } from "react-toastify";
 function App() {
   const [todos, dispatch] = useReducer(reducer, initialTodos);
   const [text, setText] = useState("");
   const [message, setMessage] = useState("");
-  console.log(todos);
+  const [searchData, setSearchData] = useState("");
   const handleCheckButton = (index) => {
     // console.log(todo.id, "app");
     dispatch({ type: "COMPLETE", id: index });
@@ -39,6 +40,19 @@ function App() {
   const handleDeleteTask = (index) => {
     dispatch({ type: "DELETE_TASK", id: index });
   };
+  console.log(searchData);
+
+  useEffect(() => {
+    if (todos.length > 0 && todos.map((item) => item.complete === false)) {
+      setTimeout(() => {
+        toast.warn(
+          `You have ${
+            todos.map((item) => item.complete === false).length
+          } unfinished list`
+        );
+      }, 6000);
+    }
+  }, [todos]);
 
   return (
     <section className="bg-[#1E1E1E]">
@@ -71,6 +85,22 @@ function App() {
               +
             </button>
           </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+            className="flex items-center gap-[15px]"
+          >
+            <input
+              onChange={(e) => setSearchData(e.target.value)}
+              value={searchData}
+              type="text"
+              name="todos"
+              className="border border-[#9E78CF] px-[10px] py-[7px] h-[32px] bg-transparent lg:w-[300px] rounded-[12px] text-white"
+              placeholder="Search for tasks..."
+            />
+          </motion.div>
+
           <p className="text-red-500 text-[13px]">{message}</p>
         </div>
         <motion.div
@@ -85,35 +115,50 @@ function App() {
             Completed - {todos.filter((todo) => todo.complete === true).length}
           </h1>
           <div className="w-full flex flex-col gap-[16px]">
-            {todos.map((todo, index) => (
-              <motion.div
-                initial={{ opacity: 0, y: 100 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-                key={index}
-                className="flex items-center justify-between rounded-[10px] bg-[#15101C] w-full h-[75px] px-[20px]"
-              >
-                <p
-                  className={`text-[#fff] ${
-                    todo.complete === true ? "line-through" : ""
-                  } `}
+            {todos
+              .filter((item) =>
+                item.title.toLowerCase().includes(searchData.toLowerCase())
+              )
+              .map((todo, index) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 100 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+                  key={index}
+                  className="flex items-center justify-between rounded-[10px] bg-[#15101C] w-full h-[75px] px-[20px]"
                 >
-                  {todo.title}
-                  {todo.complete}
-                </p>
-                <div className="flex items-center gap-[5px]">
-                  <button
-                    type="button"
-                    onClick={() => handleCheckButton(index)}
+                  <p
+                    className={`text-[#fff] ${
+                      todo.complete === true
+                        ? "line-through text-green-600"
+                        : "text-yellow-500"
+                    } `}
                   >
-                    <img src={CheckIcon} width={30} height={30} />
-                  </button>
-                  <button type="button" onClick={() => handleDeleteTask(index)}>
-                    <img src={DeleteIcon} width={30} height={30} />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
+                    {todo.title}
+                  </p>
+                  <div className="flex items-center gap-[5px]">
+                    <button
+                      type="button"
+                      onClick={() => handleCheckButton(index)}
+                    >
+                      <img src={CheckIcon} width={30} height={30} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteTask(index)}
+                    >
+                      <img src={DeleteIcon} width={30} height={30} />
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+            {todos.filter((item) =>
+              item.title.toLowerCase().includes(searchData.toLowerCase())
+            ).length === 0 && (
+              <div className="text-[#fff] text-center mt-4">
+                No results found.
+              </div>
+            )}
           </div>
         </motion.div>
       </motion.div>
